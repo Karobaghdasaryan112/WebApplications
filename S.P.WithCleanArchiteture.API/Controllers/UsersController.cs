@@ -35,8 +35,10 @@ namespace S.P.WithCleanArchiteture.API.Controllers
         public async Task<IActionResult> Registration([FromBody] UserRegistrationViewModel userRegistrationViewModel)
         {
 
-            _validatorBase.Validate<UserRegistrationViewModel>(userRegistrationViewModel);
+            _validatorBase.Validate<UserRegistrationViewModel>(userRegistrationViewModel, null);
             _registrationviewModelValidator.ValidateViewModel(userRegistrationViewModel);
+
+
 
             var UserDTO = _mapper.Map<UserDTO>(userRegistrationViewModel);
 
