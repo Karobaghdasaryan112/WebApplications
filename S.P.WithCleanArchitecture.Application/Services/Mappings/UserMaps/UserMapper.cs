@@ -11,6 +11,11 @@ namespace S.P.WithCleanArchitecture.Application.Services.Mappings.UserMaps
             CreateMap<UserDTO, User>()
                 .ForMember(User => User.Address, opt => opt.MapFrom(src => src.Address))
                 .ForMember(User => User.Money, opt => opt.MapFrom(src => src.Money));
+
+            CreateMap<User, UserDTO>()
+                .ForMember(User => User.Address, opt => opt.MapFrom(src => src.Address))
+                .ForMember(User => User.Money, opt => opt.MapFrom(src => src.Money));
+
         }
     }
 }

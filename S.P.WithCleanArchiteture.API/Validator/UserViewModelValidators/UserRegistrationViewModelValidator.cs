@@ -1,5 +1,7 @@
 ﻿using S.P.WithCleanArchitecture.Application.Validations.Interfaces;
+using S.P.WithCleanArchitecture.Application.Validations.ValidationExceptions;
 using S.P.WithCleanArchiteture.API.DTOs.User;
+using System.Text.RegularExpressions;
 
 namespace S.P.WithCleanArchiteture.API.Validator.UserViewModelValidators
 {
@@ -33,8 +35,10 @@ namespace S.P.WithCleanArchiteture.API.Validator.UserViewModelValidators
 
             ValidateExactLength(model.Address?.PostalCode, invalidMessages, POSTAL_CODE_LENGTH, nameof(model.Address.PostalCode));
 
+            ValidateEmail(model.Email, invalidMessages);
+
             if (invalidMessages.Any())
-                throw new ArgumentException(string.Join(Environment.NewLine, invalidMessages));
+                throw new InvalidDataFormatException(string.Join(Environment.NewLine, invalidMessages));
 
         }
 
@@ -75,5 +79,20 @@ namespace S.P.WithCleanArchiteture.API.Validator.UserViewModelValidators
             if (data.Length != exactLength)
                 messages.Add($"{fieldName} must be exactly {exactLength} characters.");
         }
+
+        private void ValidateEmail(string data, List<string> messages)
+        {
+            if (string.IsNullOrEmpty(data))
+            {
+                messages.Add("Email cannot be empty.");
+                return;
+            }
+
+            if (!Regex.IsMatch(data, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                messages.Add("Email format is invalid.");
+            }
+        }
+
     }
 }

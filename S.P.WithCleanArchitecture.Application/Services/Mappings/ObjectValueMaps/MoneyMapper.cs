@@ -10,6 +10,9 @@ namespace S.P.WithCleanArchitecture.Application.Services.Mappings.ObjectValueMap
         {
             CreateMap<MoneyDTO, MoneyValueObject>();
             CreateMap<AddressDTO, AddressValueObject>();
+
+            CreateMap<MoneyValueObject, MoneyDTO>();
+            CreateMap<AddressValueObject, AddressDTO>();
         }
     }
 }

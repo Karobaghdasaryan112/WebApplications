@@ -2,6 +2,7 @@
 using S.P.WithCleanArchitecture.Application.DTOs.EntitiesDTO;
 using S.P.WithCleanArchitecture.Infrastructure.Utils.PasswordHelper;
 using S.P.WithCleanArchiteture.API.DTOs.User;
+using S.P.WithCleanArchiteture.API.ViewModels.User;
 
 namespace S.P.WithCleanArchiteture.API.Mappings
 {
@@ -15,6 +16,8 @@ namespace S.P.WithCleanArchiteture.API.Mappings
 
             CreateMap<UserLoginViewModel, UserDTO>()
                 .ForMember(UDTO => UDTO.PasswordHash, opt => opt.MapFrom(UserViewModel => PasswordHasher.HashPassword(UserViewModel.Password)));
+
+            CreateMap<UserDTO, UserProfileViewModel>();
 
         }
     }

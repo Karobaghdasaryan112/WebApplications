@@ -4,5 +4,6 @@ namespace S.P.WithCleanArchitecture.Domain.Interfaces
 {
     public interface IUserRepository : ICoreRepository<User>
     {
+         Task<User> GetUserByUserName(string UserName);
     }
 }

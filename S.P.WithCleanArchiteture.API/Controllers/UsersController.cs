@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using S.P.WithCleanArchitecture.Application.DTOs.EntitiesDTO;
 using S.P.WithCleanArchitecture.Application.Interfaces;
 using S.P.WithCleanArchitecture.Application.Validations.Interfaces;
+using S.P.WithCleanArchitecture.Application.Validations.ValidationExceptions;
 using S.P.WithCleanArchiteture.API.DTOs.User;
+using S.P.WithCleanArchiteture.API.ViewModels.User;
 
 namespace S.P.WithCleanArchiteture.API.Controllers
 {
@@ -31,6 +33,8 @@ namespace S.P.WithCleanArchiteture.API.Controllers
             _loginviewModelValidator = loginviewModelValidator;
         }
 
+        //CRUD
+
         [HttpPost("Registration")]
         public async Task<IActionResult> Registration([FromBody] UserRegistrationViewModel userRegistrationViewModel)
         {
@@ -48,6 +52,48 @@ namespace S.P.WithCleanArchiteture.API.Controllers
                 return Ok(UserDTO);
 
             return BadRequest("User registration failed.");
+
+        }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginViewModel userLoginViewModel)
+        {
+
+            _validatorBase.Validate<UserLoginViewModel>(userLoginViewModel, null);
+            _loginviewModelValidator.ValidateViewModel(userLoginViewModel);
+
+
+            var LoginUserDTO = await _userService.UserLoginAsync(userLoginViewModel.UserName, userLoginViewModel.Password);
+
+            var UserProfile = _mapper.Map<UserProfileViewModel>(LoginUserDTO);
+
+
+            return Ok(UserProfile);
+
+        }
+        [HttpGet("User/{Id}")]
+        public async Task<IActionResult> GetUser([FromRoute] int Id)
+        {
+            if (Id <= 0)
+                throw new InvalidDataFormatException("Id of User must be greather than 0");
+
+            var UserDTO = await _userService.GetUserById(Id);
+
+            var UserProfile = _mapper.Map<UserProfileViewModel>(UserDTO);
+
+            return Ok(UserProfile);
+
+        }
+
+        [HttpDelete("User/{Id}")]
+        public async Task<IActionResult> DeleteUser([FromRoute] int Id)
+        {
+            if (Id <= 0)
+                throw new InvalidDataFormatException("Id of User must be greather than 0");
+
+            await _userService.DeleteUserById(Id);
+
+            return Ok($"Entity By Id {Id} is Deleted");
 
         }
     }

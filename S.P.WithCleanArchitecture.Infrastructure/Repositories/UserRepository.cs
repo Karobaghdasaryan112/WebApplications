@@ -52,5 +52,10 @@ namespace S.P.WithCleanArchitecture.Infrastructure.Repositories
 
             return true;
         }
+
+        public async Task<User> GetUserByUserName(string UserName)
+        {
+            return await _dbContext.Users.Where(U => U.UserName == UserName).FirstOrDefaultAsync();
+        }
     }
 }
