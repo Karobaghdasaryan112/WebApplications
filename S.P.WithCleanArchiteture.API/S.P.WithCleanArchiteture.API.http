@@ -1,0 +1,6 @@
+@S.P.WithCleanArchiteture.API_HostAddress = http://localhost:5035
+
+GET {{S.P.WithCleanArchiteture.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
