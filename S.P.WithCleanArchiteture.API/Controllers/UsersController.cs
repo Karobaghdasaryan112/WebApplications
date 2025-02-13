@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using S.P.WithCleanArchitecture.Application.DTOs.EntitiesDTO;
 using S.P.WithCleanArchitecture.Application.Interfaces;
+using S.P.WithCleanArchitecture.Application.Services.LoggerService;
 using S.P.WithCleanArchitecture.Application.Validations.Interfaces;
 using S.P.WithCleanArchitecture.Application.Validations.ValidationExceptions;
 using S.P.WithCleanArchiteture.API.DTOs.User;
@@ -17,15 +18,21 @@ namespace S.P.WithCleanArchiteture.API.Controllers
         private IViewModelValidator<UserLoginViewModel> _loginviewModelValidator;
         private IViewModelValidator<UserRegistrationViewModel> _registrationviewModelValidator;
         private IUserService _userService;
+        private ILoggerService _loggerService;
+        private IPrintService _printService;
         private IMapper _mapper;
 
         public UsersController(
+            IPrintService printService,
+            ILoggerService loggerService,
             IUserService userService,
             IMapper mapper, 
             IValidatorBase validatorBase,
             IViewModelValidator<UserRegistrationViewModel> registrationviewModelValidator,
             IViewModelValidator<UserLoginViewModel> loginviewModelValidator)
         {
+            _printService = printService;
+            _loggerService = loggerService;
             _validatorBase = validatorBase;
             _userService = userService;
             _mapper = mapper;
@@ -49,7 +56,17 @@ namespace S.P.WithCleanArchiteture.API.Controllers
             bool IsRegistered = await _userService.UserRegistrationAsync(UserDTO);
 
             if (IsRegistered)
+            {
+                await _loggerService.LogIntoFile(
+                      new LogObject()
+                      {
+                          CreatedDate = DateTime.UtcNow,
+                          Message = $"Sucses: User Created ({_printService.GetPrintInfo<UserDTO>(UserDTO)})",
+                          ResponseBody = StatusCodes.Status200OK
+                      });
+
                 return Ok(UserDTO);
+            }
 
             return BadRequest("User registration failed.");
 
@@ -67,6 +84,13 @@ namespace S.P.WithCleanArchiteture.API.Controllers
 
             var UserProfile = _mapper.Map<UserProfileViewModel>(LoginUserDTO);
 
+            await _loggerService.LogIntoFile(
+                     new LogObject()
+                     {
+                         CreatedDate = DateTime.UtcNow,
+                         Message = $"Sucsess: User Login ({_printService.GetPrintInfo<UserProfileViewModel>(UserProfile)})",
+                         ResponseBody = StatusCodes.Status200OK
+                     });
 
             return Ok(UserProfile);
 
@@ -80,6 +104,14 @@ namespace S.P.WithCleanArchiteture.API.Controllers
             var UserDTO = await _userService.GetUserById(Id);
 
             var UserProfile = _mapper.Map<UserProfileViewModel>(UserDTO);
+
+            await _loggerService.LogIntoFile(
+                    new LogObject()
+                    {
+                        CreatedDate = DateTime.UtcNow,
+                        Message = $"Sucsess: User ProfileWiew ({UserProfile.ToString()})",
+                        ResponseBody = StatusCodes.Status200OK
+                    });
 
             return Ok(UserProfile);
 

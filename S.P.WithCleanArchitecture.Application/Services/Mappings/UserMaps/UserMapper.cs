@@ -8,13 +8,10 @@ namespace S.P.WithCleanArchitecture.Application.Services.Mappings.UserMaps
     {
         public UserMapper()
         {
-            CreateMap<UserDTO, User>()
-                .ForMember(User => User.Address, opt => opt.MapFrom(src => src.Address))
-                .ForMember(User => User.Money, opt => opt.MapFrom(src => src.Money));
+            CreateMap<UserDTO, User>();
 
-            CreateMap<User, UserDTO>()
-                .ForMember(User => User.Address, opt => opt.MapFrom(src => src.Address))
-                .ForMember(User => User.Money, opt => opt.MapFrom(src => src.Money));
+            CreateMap<User, UserDTO>();
+
 
         }
     }

@@ -1,4 +1,6 @@
-﻿using S.P.WithCleanArchitecture.Application.Validations.ValidationExceptions;
+﻿using S.P.WithCleanArchitecture.Application.Interfaces;
+using S.P.WithCleanArchitecture.Application.Services.LoggerService;
+using S.P.WithCleanArchitecture.Application.Validations.ValidationExceptions;
 using S.P.WithCleanArchitecture.Domain.Exceptions.BaseExceptions;
 using System.Text;
 using System.Text.Json;
@@ -8,9 +10,11 @@ namespace S.P.WithCleanArchiteture.API.Middlewares
     public class ExceptionHandlingMiddleware
     {
         private RequestDelegate _next;
-        public ExceptionHandlingMiddleware(RequestDelegate next)
+        private ILoggerService _loggerService;
+        public ExceptionHandlingMiddleware(RequestDelegate next, ILoggerService loggerService)
         {
             _next = next;
+            _loggerService = loggerService;
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -42,9 +46,18 @@ namespace S.P.WithCleanArchiteture.API.Middlewares
             }
 
         }
+
         private async Task HandleExceptionAsync(string exceptionMessage, HttpContext context, int statusCode, string stackTrace = null)
         {
             var response = new ErrorResponse(exceptionMessage, statusCode);
+
+            await _loggerService.LogIntoFile(
+                new LogObject()
+                {
+                    CreatedDate = DateTime.UtcNow,
+                    Message = "Error was occuped",
+                    ResponseBody = response
+                });
 
             context.Response.StatusCode = statusCode;
             context.Response.ContentType = "application/json";

@@ -1,0 +1,32 @@
+[
+  {
+    "ResponseBody": 200,
+    "CreatedDate": "2025-02-13T10:46:03.5012835Z",
+    "Message": "Sucsess: User Login ( UserName:string, \n\r\n Email:string, \n\r\n FirstName:string, \n\r\n LastName:string, \n\r\n Age:0, \n\r\n[AddressDTO:Empty Data]\r\n[MoneyDTO:Empty Data])"
+  },
+  {
+    "ResponseBody": 200,
+    "CreatedDate": "2025-02-13T10:50:26.2562492Z",
+    "Message": "Sucsess: User Login ( UserName:string, \n\r\n Email:string, \n\r\n FirstName:string, \n\r\n LastName:string, \n\r\n Age:0, \n\r\n[AddressDTO:Empty Data]\r\n[MoneyDTO:Empty Data])"
+  },
+  {
+    "ResponseBody": 200,
+    "CreatedDate": "2025-02-13T10:55:24.2580809Z",
+    "Message": "Sucsess: User Login ( UserName:string, \r\n Email:string, \r\n FirstName:string, \r\n LastName:string, \r\n Age:0, \r\n[AddressDTO:Empty Data]\r\n[MoneyDTO:Empty Data])"
+  },
+  {
+    "ResponseBody": 200,
+    "CreatedDate": "2025-02-13T11:01:45.8677565Z",
+    "Message": "Sucsess: User Login ( UserName:string, , Email:string, , FirstName:string, , LastName:string, , Age:0, ,[AddressDTO: Street:string, , City:string, , Country:string, , PostalCode:string, ],[MoneyDTO:Empty Data])"
+  },
+  {
+    "ResponseBody": 200,
+    "CreatedDate": "2025-02-13T11:03:24.0498391Z",
+    "Message": "Sucsess: User Login ( UserName:string, , Email:string, , FirstName:string, , LastName:string, , Age:0, ,[AddressDTO:[ Street:string, , City:string, , Country:string, , PostalCode:string, ]],[MoneyDTO:[Empty Data]])"
+  },
+  {
+    "ResponseBody": 200,
+    "CreatedDate": "2025-02-13T11:06:47.2869982Z",
+    "Message": "Sucsess: User Login ( UserName:string, , Email:string, , FirstName:string, , LastName:string, , Age:0, ,[AddressDTO:[ Street:string, , City:string, , Country:string, , PostalCode:string, ]],[MoneyDTO:[ Amount:100.00, , currency:USD, ]])"
+  }
+]

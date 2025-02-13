@@ -2,9 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using S.P.WithCleanArchitecture.Application.Interfaces;
 using S.P.WithCleanArchitecture.Application.Services.EntityServices;
 using S.P.WithCleanArchitecture.Application.Services.Mappings.UserMaps;
+using S.P.WithCleanArchitecture.Application.Services.PrintServices;
 using S.P.WithCleanArchitecture.Application.Validations.Interfaces;
 using S.P.WithCleanArchitecture.Domain.Interfaces;
 using S.P.WithCleanArchitecture.Infrastructure.Data.DataBase;
+using S.P.WithCleanArchitecture.Infrastructure.Logging;
 using S.P.WithCleanArchitecture.Infrastructure.Repositories;
 using S.P.WithCleanArchiteture.API.DTOs.User;
 using S.P.WithCleanArchiteture.API.Middlewares;
@@ -54,7 +56,11 @@ builder.Services.AddScoped<IValidatorBase, ValidatorBase>();
 builder.Services.AddScoped<IViewModelValidator<UserRegistrationViewModel>, UserRegistrationViewModelValidator>();
 builder.Services.AddScoped<IViewModelValidator<UserLoginViewModel>, UserViewModelValidator>();
 
+//Inject Logger
+builder.Services.AddSingleton<ILoggerService,FileLoggerService>();  
 
+//Inject Print
+builder.Services.AddScoped<IPrintService,PrintService>();
 
 var app = builder.Build();
 

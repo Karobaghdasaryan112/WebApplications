@@ -43,16 +43,14 @@ namespace S.P.WithCleanArchitecture.Application.Services.EntityServices
             if (PasswordHasher.VerifyPassword(password, User.PasswordHash))
             {
                 var UserDTO = _mapper.Map<UserDTO>(User);
+
                 return UserDTO;
             }
 
             throw new UserNotFoundException(new string[] { UserName, password });
         }
 
-        private void DefineDefaultMoneyForRegisteredUser(UserDTO userDTO)
-        {
-            userDTO.Money = new MoneyDTO(100.00m, Currency.USD);
-        }
+
 
         public async Task<UserDTO> GetUserById(int UserId)
         {
@@ -84,6 +82,13 @@ namespace S.P.WithCleanArchitecture.Application.Services.EntityServices
             var User = _mapper.Map<User>(userDTO);
 
             await _userRepository.UpdateEntity(User);
+        }
+
+
+        //Priavate Methods
+        private void DefineDefaultMoneyForRegisteredUser(UserDTO userDTO)
+        {
+            userDTO.Money = new MoneyDTO(100.00m, Currency.USD);
         }
     }
 }
