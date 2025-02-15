@@ -5,13 +5,38 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimpleProjectWithCleanArchitecture", "SimpleProjectWithCleanArchitecture", "{F00F00DE-AD77-4B47-B36B-F84D0DFE520F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S.P.WithCleanArchitecture.Domain", "SimpleCleanArchitecture.Domain\S.P.WithCleanArchitecture.Domain.csproj", "{397AE803-D0B5-4A9C-81A3-FE75E538ECE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S.P.WithCleanArchitecture.Domain", "SimpleCleanArchitecture.Domain\S.P.WithCleanArchitecture.Domain.csproj", "{397AE803-D0B5-4A9C-81A3-FE75E538ECE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S.P.WithCleanArchitecture.Infrastructure", "S.P.WithCleanArchitecture.Infrastructure\S.P.WithCleanArchitecture.Infrastructure.csproj", "{CDF73BA0-12A5-49E3-9F14-ED6959AE8F8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S.P.WithCleanArchitecture.Infrastructure", "S.P.WithCleanArchitecture.Infrastructure\S.P.WithCleanArchitecture.Infrastructure.csproj", "{CDF73BA0-12A5-49E3-9F14-ED6959AE8F8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S.P.WithCleanArchitecture.Application", "S.P.WithCleanArchitecture.Application\S.P.WithCleanArchitecture.Application.csproj", "{CF3747B0-2C68-43E1-906C-DF06B385B74D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S.P.WithCleanArchitecture.Application", "S.P.WithCleanArchitecture.Application\S.P.WithCleanArchitecture.Application.csproj", "{CF3747B0-2C68-43E1-906C-DF06B385B74D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S.P.WithCleanArchiteture.API", "S.P.WithCleanArchiteture.API\S.P.WithCleanArchiteture.API.csproj", "{A0045976-0468-4037-BDF2-B80E3199CFBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S.P.WithCleanArchiteture.API", "S.P.WithCleanArchiteture.API\S.P.WithCleanArchiteture.API.csproj", "{A0045976-0468-4037-BDF2-B80E3199CFBC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AuthenticationAndAuthorizationSimpleProject", "AuthenticationAndAuthorizationSimpleProject", "{1081D92F-5C29-4E26-9FDF-9F3B165A82C8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MinimalAPI", "MinimalAPI", "{7A18637C-ACB1-4F81-A771-927DF6D9EE07}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RESTfullAPI", "RESTfullAPI", "{92856DFD-0699-4B4A-AB3F-D341422ECD6A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimpleProjectWithDocker", "SimpleProjectWithDocker", "{2C561248-810F-4081-B909-D0A681DCA6B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimpleProjectWithDockerCompose", "SimpleProjectWithDockerCompose", "{E5D2811C-DD7E-41AA-9428-815B91364055}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DistributedCaching", "DistributedCaching", "{576430A5-2E8E-484F-BED2-D8A239E0590F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimpleProjectWithRabbitMQ", "SimpleProjectWithRabbitMQ", "{E81FF982-E112-426F-A2E3-015D0E2C91A0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimpleProjectWithBackgroundJobs", "SimpleProjectWithBackgroundJobs", "{9E55F076-2362-4B54-A4D9-406B500EF5A4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimpleLifeTimeProject", "SimpleLifeTimeProject", "{223169FD-6B93-44A8-9523-A01AF6D86E89}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{075B815E-CBD4-404D-B160-957D6CB87074}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7D8C5DEB-57BD-4766-98E2-387C1602CE8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,10 +65,11 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{397AE803-D0B5-4A9C-81A3-FE75E538ECE8} = {F00F00DE-AD77-4B47-B36B-F84D0DFE520F}
-		{CDF73BA0-12A5-49E3-9F14-ED6959AE8F8F} = {F00F00DE-AD77-4B47-B36B-F84D0DFE520F}
-		{CF3747B0-2C68-43E1-906C-DF06B385B74D} = {F00F00DE-AD77-4B47-B36B-F84D0DFE520F}
-		{A0045976-0468-4037-BDF2-B80E3199CFBC} = {F00F00DE-AD77-4B47-B36B-F84D0DFE520F}
+		{397AE803-D0B5-4A9C-81A3-FE75E538ECE8} = {7D8C5DEB-57BD-4766-98E2-387C1602CE8C}
+		{CDF73BA0-12A5-49E3-9F14-ED6959AE8F8F} = {7D8C5DEB-57BD-4766-98E2-387C1602CE8C}
+		{CF3747B0-2C68-43E1-906C-DF06B385B74D} = {7D8C5DEB-57BD-4766-98E2-387C1602CE8C}
+		{A0045976-0468-4037-BDF2-B80E3199CFBC} = {7D8C5DEB-57BD-4766-98E2-387C1602CE8C}
+		{7D8C5DEB-57BD-4766-98E2-387C1602CE8C} = {F00F00DE-AD77-4B47-B36B-F84D0DFE520F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5B8A4E69-F565-4F72-80F4-3C2FAAB39C88}

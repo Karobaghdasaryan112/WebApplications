@@ -8,10 +8,13 @@ using S.P.WithCleanArchitecture.Domain.Interfaces;
 using S.P.WithCleanArchitecture.Infrastructure.Data.DataBase;
 using S.P.WithCleanArchitecture.Infrastructure.Logging;
 using S.P.WithCleanArchitecture.Infrastructure.Repositories;
+using S.P.WithCleanArchiteture.API.DTOs.Category;
 using S.P.WithCleanArchiteture.API.DTOs.User;
 using S.P.WithCleanArchiteture.API.Middlewares;
 using S.P.WithCleanArchiteture.API.Validator;
+using S.P.WithCleanArchiteture.API.Validator.CategoryViewModelValidators;
 using S.P.WithCleanArchiteture.API.Validator.UserViewModelValidators;
+using S.P.WithCleanArchiteture.API.ViewModels.User;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +23,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
@@ -31,12 +35,11 @@ builder.Services.AddDbContext<CleanAchitectureDbContext>(options => {
     });
 
 //Inject Services
-builder.Services.AddScoped<IUserService,UserService>();
-builder.Services.AddScoped<IUserRepository,UserRepository>();
+
+
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 
 //Inject Repositories
@@ -53,8 +56,11 @@ builder.Services.AddAutoMapper(typeof(S.P.WithCleanArchiteture.API.Mappings.User
 
 //Inject Validators
 builder.Services.AddScoped<IValidatorBase, ValidatorBase>();
+builder.Services.AddScoped<IInputValidatorBase,InputsValidatorBase>();
 builder.Services.AddScoped<IViewModelValidator<UserRegistrationViewModel>, UserRegistrationViewModelValidator>();
 builder.Services.AddScoped<IViewModelValidator<UserLoginViewModel>, UserViewModelValidator>();
+builder.Services.AddScoped<IViewModelValidator<UserEditViewModel>, UserEditViewModelValidator>();
+builder.Services.AddScoped<IViewModelValidator<CategoryViewModel>, CategoryViewModelValidator>();
 
 //Inject Logger
 builder.Services.AddSingleton<ILoggerService,FileLoggerService>();  

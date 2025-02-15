@@ -12,9 +12,10 @@ namespace S.P.WithCleanArchitecture.Application.Services.EntityServices
 {
     public class UserService : IUserService
     {
-        private IUserRepository _userRepository;    
+        private IUserRepository _userRepository;
         private IMapper _mapper;
-        public UserService(IUserRepository userRepository,IMapper mapper)
+        private bool _isTheSameForUpdate = false;
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
             _mapper = mapper;
@@ -26,7 +27,8 @@ namespace S.P.WithCleanArchitecture.Application.Services.EntityServices
 
             var User = _mapper.Map<User>(userDTO);
 
-
+            User.CreatedDate = DateTime.Now;
+            User.UpdatedAt = DateTime.Now;
 
             await _userRepository.CreateEntity(User);
 
@@ -77,11 +79,25 @@ namespace S.P.WithCleanArchitecture.Application.Services.EntityServices
 
         }
 
-        public async Task UpdateUser(UserDTO userDTO)
+        public async Task UpdateUser(UserDTO userDTO, UserDTO updateUserDTO,int Id,string oldPassword)
         {
-            var User = _mapper.Map<User>(userDTO);
+            if (!PasswordHasher.VerifyPassword(oldPassword, userDTO.PasswordHash))
+                throw new UserUpdateException("OldPassword is Invalid for Update");
 
-            await _userRepository.UpdateEntity(User);
+            if (IsTheSameForUpdate(userDTO, updateUserDTO))
+            {
+                updateUserDTO.Money = userDTO.Money;
+
+                var User = _mapper.Map<User>(updateUserDTO);
+
+
+                User.UpdatedAt = DateTime.Now;
+
+                await _userRepository.UpdateEntity(User,Id);
+
+                return;
+            }
+            throw new UserUpdateException("User Update Is fail.please change any datas!");
         }
 
 
@@ -89,6 +105,58 @@ namespace S.P.WithCleanArchitecture.Application.Services.EntityServices
         private void DefineDefaultMoneyForRegisteredUser(UserDTO userDTO)
         {
             userDTO.Money = new MoneyDTO(100.00m, Currency.USD);
+        }
+
+        private bool IsTheSameForUpdate<TValue1, TValue2>(TValue1 userDTO, TValue2 updateUserDTO)
+        {
+            var Value1Properties = typeof(TValue1).GetProperties();
+
+            var Value2Properties = typeof(TValue2).GetProperties();
+
+            var Value1Fields = typeof(TValue1).GetFields();
+
+            var Value2Fields = typeof(TValue2).GetFields();
+
+            for (var i = 0; i < Value1Properties.Length; i++)
+            {
+                if (Value1Properties[i].GetValue(userDTO) != default && Value2Properties[i].GetValue(updateUserDTO) != default)
+                {
+                    if (Value1Properties[i].PropertyType.IsClass)
+                    {
+                        var Value1PropertyValue = Value1Properties[i].GetValue(userDTO);
+                        var Value2PropertyValue = Value2Properties[i].GetValue(updateUserDTO);
+
+                        _isTheSameForUpdate = IsTheSameForUpdate(Value1PropertyValue, Value2PropertyValue);
+                        if (!_isTheSameForUpdate)
+                            return true;
+                    }
+                    _isTheSameForUpdate = Value1Properties[i].GetValue(userDTO) == Value2Properties[i].GetValue(updateUserDTO);
+                    if (!_isTheSameForUpdate)
+                        return true;
+                }
+            }
+
+            for (var i = 0; i < Value2Fields.Length; i++)
+            {
+                if (Value1Fields[i].GetValue(userDTO) != default && Value2Fields[i].GetValue(updateUserDTO) != default)
+                {
+                    if (Value1Fields[i].FieldType.IsClass)
+                    {
+                        var Value1FieldValue = Value1Fields[i].GetValue(userDTO);
+                        var Value2FieldValue = Value2Fields[i].GetValue(updateUserDTO);
+
+                        _isTheSameForUpdate = IsTheSameForUpdate(Value1FieldValue, Value2FieldValue);
+                        if (!_isTheSameForUpdate)
+                            return true;
+                    }
+                    _isTheSameForUpdate = Value1Properties[i].GetValue(userDTO) == Value2Properties[i].GetValue(updateUserDTO);
+                    if (!_isTheSameForUpdate)
+                        return true;
+                }
+            }
+
+
+            return _isTheSameForUpdate;
         }
     }
 }

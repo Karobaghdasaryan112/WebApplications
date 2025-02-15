@@ -4,8 +4,6 @@ namespace S.P.WithCleanArchitecture.Application.Services.PrintServices
 {
     public class PrintService : IPrintService
     {
-
-
         public string GetPrintInfo<TPrint>(TPrint print, HashSet<object> visited = null)
         {
 
@@ -25,7 +23,7 @@ namespace S.P.WithCleanArchitecture.Application.Services.PrintServices
 
             foreach (var field in fields)
             {
-                string printResultItem = null;
+                string printResultItem = default;
 
                 var ValueOfField = field.GetValue(print);
                 var NameOfField = field.Name;
@@ -45,7 +43,8 @@ namespace S.P.WithCleanArchitecture.Application.Services.PrintServices
 
             foreach (var property in Properties)
             {
-                string printResultItem = null;
+                string printResultItem = default;
+
                 var ValueOfProperty = property.GetValue(print);
                 var NameOfField = property.Name;
 

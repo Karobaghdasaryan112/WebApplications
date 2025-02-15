@@ -3,8 +3,7 @@ using S.P.WithCleanArchitecture.Application.Services.LoggerService;
 using System.Text.Json;
 
 namespace S.P.WithCleanArchitecture.Infrastructure.Logging
-{
-
+{ 
     public class FileLoggerService : ILoggerService
     {
         private static List<LogObject> logObjects = new List<LogObject>();
@@ -18,10 +17,13 @@ namespace S.P.WithCleanArchitecture.Infrastructure.Logging
 
             var ReadingLogObjectsAsJson = await File.ReadAllTextAsync(GetLogFilePath());
 
-            logObjects = JsonSerializer.Deserialize<List<LogObject>>(
-                ReadingLogObjectsAsJson,
-                new JsonSerializerOptions { WriteIndented = true }) ??
-                logObjects;
+            if (ReadingLogObjectsAsJson.Length > 0)
+            {
+                logObjects = JsonSerializer.Deserialize<List<LogObject>>(
+                    ReadingLogObjectsAsJson,
+                    new JsonSerializerOptions { WriteIndented = true }) ??
+                    logObjects;
+            }
 
             logObjects.Add(logObject);
 

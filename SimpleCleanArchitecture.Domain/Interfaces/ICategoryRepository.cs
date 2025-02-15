@@ -5,6 +5,6 @@ namespace S.P.WithCleanArchitecture.Domain.Interfaces
 {
     public interface ICategoryRepository : ICoreRepository<Category>
     {
-
+        Task<Category> GetCategoryByName(string Name);
     }
 }

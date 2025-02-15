@@ -1,32 +1,39 @@
 [
   {
     "ResponseBody": 200,
-    "CreatedDate": "2025-02-13T10:46:03.5012835Z",
-    "Message": "Sucsess: User Login ( UserName:string, \n\r\n Email:string, \n\r\n FirstName:string, \n\r\n LastName:string, \n\r\n Age:0, \n\r\n[AddressDTO:Empty Data]\r\n[MoneyDTO:Empty Data])"
+    "CreatedDate": "2025-02-14T10:42:52.4961384Z",
+    "Message": "Sucsess: User with Id 9 Updated"
   },
   {
-    "ResponseBody": 200,
-    "CreatedDate": "2025-02-13T10:50:26.2562492Z",
-    "Message": "Sucsess: User Login ( UserName:string, \n\r\n Email:string, \n\r\n FirstName:string, \n\r\n LastName:string, \n\r\n Age:0, \n\r\n[AddressDTO:Empty Data]\r\n[MoneyDTO:Empty Data])"
+    "ResponseBody": {
+      "ErrorMessage": "User With UserName string And with Password string doesnt Exist",
+      "StatusCode": 404
+    },
+    "CreatedDate": "2025-02-14T10:52:09.1696739Z",
+    "Message": "Error was occuped"
   },
   {
-    "ResponseBody": 200,
-    "CreatedDate": "2025-02-13T10:55:24.2580809Z",
-    "Message": "Sucsess: User Login ( UserName:string, \r\n Email:string, \r\n FirstName:string, \r\n LastName:string, \r\n Age:0, \r\n[AddressDTO:Empty Data]\r\n[MoneyDTO:Empty Data])"
+    "ResponseBody": {
+      "ErrorMessage": "Unable to resolve service for type \u0027S.P.WithCleanArchitecture.Application.Interfaces.ICategoryService\u0027 while attempting to activate \u0027S.P.WithCleanArchiteture.API.Controllers.CategoriesController\u0027.",
+      "StatusCode": 501
+    },
+    "CreatedDate": "2025-02-14T21:39:57.5324754Z",
+    "Message": "Error was occuped"
   },
   {
-    "ResponseBody": 200,
-    "CreatedDate": "2025-02-13T11:01:45.8677565Z",
-    "Message": "Sucsess: User Login ( UserName:string, , Email:string, , FirstName:string, , LastName:string, , Age:0, ,[AddressDTO: Street:string, , City:string, , Country:string, , PostalCode:string, ],[MoneyDTO:Empty Data])"
+    "ResponseBody": {
+      "ErrorMessage": "Unable to resolve service for type \u0027S.P.WithCleanArchitecture.Application.Validations.Interfaces.IViewModelValidator\u00601[S.P.WithCleanArchiteture.API.DTOs.Category.CategoryViewModel]\u0027 while attempting to activate \u0027S.P.WithCleanArchiteture.API.Controllers.CategoriesController\u0027.",
+      "StatusCode": 501
+    },
+    "CreatedDate": "2025-02-14T21:41:11.3442184Z",
+    "Message": "Error was occuped"
   },
   {
-    "ResponseBody": 200,
-    "CreatedDate": "2025-02-13T11:03:24.0498391Z",
-    "Message": "Sucsess: User Login ( UserName:string, , Email:string, , FirstName:string, , LastName:string, , Age:0, ,[AddressDTO:[ Street:string, , City:string, , Country:string, , PostalCode:string, ]],[MoneyDTO:[Empty Data]])"
-  },
-  {
-    "ResponseBody": 200,
-    "CreatedDate": "2025-02-13T11:06:47.2869982Z",
-    "Message": "Sucsess: User Login ( UserName:string, , Email:string, , FirstName:string, , LastName:string, , Age:0, ,[AddressDTO:[ Street:string, , City:string, , Country:string, , PostalCode:string, ]],[MoneyDTO:[ Amount:100.00, , currency:USD, ]])"
+    "ResponseBody": {
+      "ErrorMessage": "CategoryName asd doesn\u0027t Exist",
+      "StatusCode": 501
+    },
+    "CreatedDate": "2025-02-14T21:45:00.4511657Z",
+    "Message": "Error was occuped"
   }
 ]

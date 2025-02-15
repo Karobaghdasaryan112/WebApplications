@@ -9,13 +9,13 @@ namespace S.P.WithCleanArchitecture.Application.Services.Mappings
         public CategoryMapper()
         {
             CreateMap<Category, CategoryDTO>()
-                .ForMember(CDTO => CDTO.Id, opt => opt.MapFrom(C => C.Id))
-                .ForMember(CDTO => CDTO.CategoryName, opt => opt.MapFrom(C => C.CategoryName));
+                .ForMember(CDTO => CDTO.CategoryName, opt => opt.MapFrom(C => C.CategoryName))
+                .ForMember(CDTO => CDTO.ProductsDTO, opt => opt.MapFrom(C => C.Products));
 
             CreateMap<CategoryDTO, Category>()
-                .ForMember(C => C.Id,opt => opt.MapFrom(CDTO => CDTO.Id))
-                .ForMember(C => C.CategoryName,opt => opt.MapFrom(CDTO => CDTO.CategoryName));
-
+                .ForMember(C => C.CategoryName,opt => opt.MapFrom(CDTO => CDTO.CategoryName))
+                .ForMember(C => C.Products,opt => opt.MapFrom(CDTO => CDTO.ProductsDTO));
+                
         }
     }
 }

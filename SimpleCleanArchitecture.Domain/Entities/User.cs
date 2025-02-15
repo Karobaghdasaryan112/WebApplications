@@ -19,5 +19,6 @@ namespace S.P.WithCleanArchitecture.Domain.Entities
         public AddressValueObject Address { get; set; }
 
         public ICollection<Order> Orders { get; set; } = new List<Order>();
+
     }
 }

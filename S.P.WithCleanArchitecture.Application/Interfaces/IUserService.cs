@@ -14,7 +14,7 @@ namespace S.P.WithCleanArchitecture.Application.Interfaces
         
         Task DeleteUserByUserName(string UserName);
 
-        Task UpdateUser(UserDTO userDTO);
+        Task UpdateUser(UserDTO userDTO,UserDTO updateUserDTO,int Id,string oldPassword);
 
 
     }

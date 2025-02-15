@@ -15,22 +15,28 @@ namespace S.P.WithCleanArchiteture.API.Controllers
     public class UsersController : ControllerBase
     {
         private IValidatorBase _validatorBase;
+        private IInputValidatorBase _inputValidatorBase;
         private IViewModelValidator<UserLoginViewModel> _loginviewModelValidator;
         private IViewModelValidator<UserRegistrationViewModel> _registrationviewModelValidator;
+        private IViewModelValidator<UserEditViewModel> _editViewModelValidator;
         private IUserService _userService;
         private ILoggerService _loggerService;
         private IPrintService _printService;
         private IMapper _mapper;
 
         public UsersController(
+            IInputValidatorBase inputValidatorBase,
             IPrintService printService,
             ILoggerService loggerService,
             IUserService userService,
             IMapper mapper, 
             IValidatorBase validatorBase,
+            IViewModelValidator<UserEditViewModel> editViewModelValidator,
             IViewModelValidator<UserRegistrationViewModel> registrationviewModelValidator,
             IViewModelValidator<UserLoginViewModel> loginviewModelValidator)
         {
+            _inputValidatorBase = inputValidatorBase;
+            _editViewModelValidator = editViewModelValidator;
             _printService = printService;
             _loggerService = loggerService;
             _validatorBase = validatorBase;
@@ -125,8 +131,45 @@ namespace S.P.WithCleanArchiteture.API.Controllers
 
             await _userService.DeleteUserById(Id);
 
-            return Ok($"Entity By Id {Id} is Deleted");
+            await _loggerService.LogIntoFile(
+                new LogObject()
+                {
+                    CreatedDate = DateTime.UtcNow,
+                    Message = $"Sucsess: User with Id {Id} Deleted",
+                    ResponseBody = StatusCodes.Status200OK
+                });
 
+            return Ok($"Entity By Id {Id} is Deleted");
+        }
+
+        [HttpPut("User/Edit/{Id}")]
+        public async Task<IActionResult> UpdateUserById([FromRoute] int Id, [FromBody] UserEditViewModel userEditViewModel)
+        {
+            if (Id <= 0)
+                throw new InvalidDataFormatException("Id of User must be greather than 0");
+
+
+            _validatorBase.Validate<UserEditViewModel>(userEditViewModel, null);
+            _editViewModelValidator.ValidateViewModel(userEditViewModel);
+
+
+
+            var UserDTO = await _userService.GetUserById(Id);
+
+
+            var UpdateUserDTO = _mapper.Map<UserDTO>(userEditViewModel);
+
+            await _userService.UpdateUser(UserDTO, UpdateUserDTO,Id,userEditViewModel.OldPassword);
+
+            await _loggerService.LogIntoFile(
+                new LogObject()
+                {
+                    CreatedDate = DateTime.UtcNow,
+                    Message = $"Sucsess: User with Id {Id} Updated",
+                    ResponseBody = StatusCodes.Status200OK
+                });
+
+            return Ok($"Sucsess User Update by id {Id}");
         }
     }
 }

@@ -19,6 +19,11 @@ namespace S.P.WithCleanArchiteture.API.Mappings
 
             CreateMap<UserDTO, UserProfileViewModel>();
 
+            CreateMap<UserEditViewModel, UserDTO>()
+                .ForMember(UDTO => UDTO.PasswordHash, opt => opt.MapFrom(EditViewModel => PasswordHasher.HashPassword(EditViewModel.NewPassword)));
+
+            CreateMap<UserDTO, UserEditViewModel>()
+                .ForMember(EditViewModel => EditViewModel. NewPassword, opt => opt.MapFrom(UDTO => UDTO.PasswordHash));
         }
     }
 }

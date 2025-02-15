@@ -5,7 +5,7 @@ namespace S.P.WithCleanArchitecture.Domain.Interfaces
     {
         Task<TEntity> GetEntityById(int entityId);
         Task<bool> DeleteEntityById(int EntityId);
-        Task UpdateEntity(TEntity entity);
+        Task UpdateEntity(TEntity entity,int Id);
         Task<ICollection<TEntity>> GetAll();
 
         Task<bool> CreateEntity(TEntity entity);

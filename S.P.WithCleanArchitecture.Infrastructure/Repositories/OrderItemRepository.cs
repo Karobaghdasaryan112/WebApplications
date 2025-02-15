@@ -40,7 +40,7 @@ namespace S.P.WithCleanArchitecture.Infrastructure.Repositories
             return OrderItem;
         }
 
-        public async Task UpdateEntity(OrderItem entity)
+        public async Task UpdateEntity(OrderItem entity,int Id)
         {
             _dbContext.OrderItems.Update(entity);   
 

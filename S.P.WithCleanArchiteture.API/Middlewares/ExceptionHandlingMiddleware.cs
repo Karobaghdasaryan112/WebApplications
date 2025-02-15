@@ -55,7 +55,7 @@ namespace S.P.WithCleanArchiteture.API.Middlewares
                 new LogObject()
                 {
                     CreatedDate = DateTime.UtcNow,
-                    Message = "Error was occuped",
+                    Message = $"Error was occuped",
                     ResponseBody = response
                 });
 
@@ -63,6 +63,7 @@ namespace S.P.WithCleanArchiteture.API.Middlewares
             context.Response.ContentType = "application/json";
 
             var jsonResponse = JsonSerializer.Serialize(response);
+
             var responseBytes = Encoding.UTF8.GetBytes(jsonResponse);
 
             await context.Response.Body.WriteAsync(responseBytes, 0, responseBytes.Length);

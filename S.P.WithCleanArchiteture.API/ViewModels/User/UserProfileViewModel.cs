@@ -1,4 +1,5 @@
 ﻿using S.P.WithCleanArchitecture.Application.DTOs.ValueObjectDTO;
+using S.P.WithCleanArchitecture.Domain.Entities;
 
 namespace S.P.WithCleanArchiteture.API.ViewModels.User
 {

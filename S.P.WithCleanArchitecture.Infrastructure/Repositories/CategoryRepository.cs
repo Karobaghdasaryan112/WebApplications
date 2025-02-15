@@ -40,7 +40,7 @@ namespace S.P.WithCleanArchitecture.Infrastructure.Repositories
             return Category;
         }
 
-        public async Task UpdateEntity(Category entity)
+        public async Task UpdateEntity(Category entity,int Id)
         {
             _dbContext.Categories.Update(entity);
 
@@ -50,6 +50,13 @@ namespace S.P.WithCleanArchitecture.Infrastructure.Repositories
         public Task<bool> CreateEntity(Category entity)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Category> GetCategoryByName(string Name)
+        {
+            var Category = await _dbContext.Categories.Where(Category => Category.CategoryName == Name).Include(Category => Category.Products).FirstOrDefaultAsync();
+
+            return Category;
         }
     }
 }

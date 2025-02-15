@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using S.P.WithCleanArchitecture.Domain.Entities;
+using S.P.WithCleanArchitecture.Domain.Exceptions.UserExceptions;
 using S.P.WithCleanArchitecture.Domain.Interfaces;
 using S.P.WithCleanArchitecture.Infrastructure.Data.DataBase;
 
@@ -32,9 +33,9 @@ namespace S.P.WithCleanArchitecture.Infrastructure.Repositories
             return true;
         }
 
-        public async Task UpdateEntity(User entity)
+        public async Task UpdateEntity(User updateEntity, int id)
         {
-            _dbContext.Update(entity);
+            _dbContext.Update(updateEntity);
 
             await _dbContext.SaveChangesAsync();
         }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
+using S.P.WithCleanArchitecture.Application.DTOs.EntitiesDTO;
 using S.P.WithCleanArchitecture.Application.Interfaces;
-using S.P.WithCleanArchitecture.Domain.Entities;
+using S.P.WithCleanArchitecture.Domain.Exceptions.CategoryExceptions;
 using S.P.WithCleanArchitecture.Domain.Interfaces;
 
 namespace S.P.WithCleanArchitecture.Application.Services.EntityServices
@@ -16,7 +17,23 @@ namespace S.P.WithCleanArchitecture.Application.Services.EntityServices
             _categoryRepository = categoryRepository;
         }
 
+        public async Task DeleteCategoryById(int CategoryId)
+        {
+            if (!await _categoryRepository.DeleteEntityById(CategoryId))
+                throw new CategoryNotFoundException($"Category by Id {CategoryId} isn't found");
 
+        }
 
+        public async Task<CategoryDTO> GetCategoryByName(string CategoryName)
+        {
+           var Category = await _categoryRepository.GetCategoryByName(CategoryName);
+
+            if (Category == null)
+                throw new CategoryNotFoundException($"CategoryName {CategoryName} doesn't Exist");
+
+            var CategoryDTO = _mapper.Map<CategoryDTO>(Category);
+
+            return CategoryDTO;
+        }
     }
 }

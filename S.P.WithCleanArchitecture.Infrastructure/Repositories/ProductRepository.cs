@@ -39,7 +39,7 @@ namespace S.P.WithCleanArchitecture.Infrastructure.Repositories
             return Product;
         }
 
-        public async Task UpdateEntity(Product entity)
+        public async Task UpdateEntity(Product entity, int Id)
         {
             _dbContext.Products.Update(entity);
 
